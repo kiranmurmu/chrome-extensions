@@ -1,3 +1,5 @@
 (function () {
-  console.log("content script is running...");
+  chrome.storage.sync.get("color", ({ color }) => {
+    document.body.style.backgroundColor = color;
+  });
 })();
