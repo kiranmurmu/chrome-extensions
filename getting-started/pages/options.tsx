@@ -2,16 +2,25 @@ import { Fragment, useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 function Options() {
-  const [presetButtonColors] = useState<string[]>([
-    "#3aa757",
-    "#e8453c",
-    "#f9bb2d",
-    "#4688f1",
-  ]);
-  const [currentColor, setCurrentColor] = useState<string>("#3aa757");
+  const [presetColors, setPresetColors] = useState<string[] | undefined>(
+    undefined
+  );
+  const [currentColor, setCurrentColor] = useState<string | undefined>(
+    undefined
+  );
   const handleButtonClick = (color: string) => {
     setCurrentColor(color);
   };
+
+  useEffect(() => {
+    if (presetColors) {
+      chrome.storage.sync.set({ colors: presetColors });
+    } else {
+      chrome.storage.sync.get("colors", ({ colors }) => {
+        setPresetColors(colors);
+      });
+    }
+  }, [presetColors]);
 
   useEffect(() => {
     if (currentColor) {
@@ -26,7 +35,7 @@ function Options() {
   return (
     <Fragment>
       <div id="buttonDiv">
-        {presetButtonColors.map((buttonColor) => (
+        {presetColors?.map((buttonColor) => (
           <button
             key={uuidv4()}
             data-color={buttonColor}
