@@ -7,7 +7,14 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "babel": "babel scripts --out-dir build --extensions .ts"
+    "export": "next export -o build",
+    "babel": "babel scripts --out-dir build --extensions .ts",
+    "rename": "mv build/_next build/public",
+    "replace": "sed -i 's/\\/_next/\\/public/g' build/**.html",
+    "postbuild": "npm run export",
+    "postexport": "npm run babel",
+    "postbabel": "npm run rename",
+    "postrename": "npm run replace"
   },
   "dependencies": {
     "next": "12.1.0",
