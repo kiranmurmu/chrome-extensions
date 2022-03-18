@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 function Popup() {
-  const [backgroundColor, setBackgroundColor] = useState<string>("#3aa757");
+  const [color, setColor] = useState<string | undefined>(undefined);
 
   const handleButtonClick = async () => {
     let [tab] = await chrome.tabs.query({
@@ -16,16 +16,18 @@ function Popup() {
   };
 
   useEffect(() => {
-    chrome.storage.sync.get("color", ({ color }) => {
-      setBackgroundColor(color);
-    });
-  }, [backgroundColor]);
+    if (color) {
+      chrome.storage.sync.get("color", ({ color }) => {
+        setColor(color);
+      });
+    }
+  }, [color]);
 
   return (
     <button
       id="changeColor"
       style={{
-        backgroundColor: backgroundColor,
+        backgroundColor: color,
       }}
       onClick={handleButtonClick}
     ></button>
