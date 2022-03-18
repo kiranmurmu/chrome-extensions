@@ -16,11 +16,9 @@ function Popup() {
   };
 
   useEffect(() => {
-    if (color) {
-      chrome.storage.sync.get("color", ({ color }) => {
-        setColor(color);
-      });
-    }
+    chrome.storage.sync.get("color", ({ color }) => {
+      setColor(color);
+    });
   }, [color]);
 
   return (
