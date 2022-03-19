@@ -1,0 +1,10 @@
+{
+  "name": "chrome-extensions",
+  "version": "1.0.0",
+  "description": "This is a collection of chrome extension projects created using Next.js",
+  "private": true,
+  "license": "MIT",
+  "workspaces": [
+    "getting-started"
+  ]
+}
