@@ -5,6 +5,7 @@
   "private": true,
   "license": "MIT",
   "workspaces": [
-    "getting-started"
+    "getting-started",
+    "auto-text-replacer"
   ]
 }
